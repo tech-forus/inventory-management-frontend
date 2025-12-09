@@ -92,7 +92,7 @@ const OnboardingWizard: React.FC = () => {
 
   const loadProductCategories = async (cid: string) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/onboarding/product-categories/${cid}`);
+      const response = await axios.get(`inventory-management-backend-production-4101.up.railway.app/api/onboarding/product-categories/${cid}`);
       if (response.data.success && response.data.data.length > 0) {
         setProductCategoriesList(response.data.data);
         if (response.data.data.length > 0) {
@@ -107,7 +107,7 @@ const OnboardingWizard: React.FC = () => {
 
   const loadItemCategories = async (cid: string, productCategoryId: number) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/onboarding/item-categories/${cid}/${productCategoryId}`);
+      const response = await axios.get(`inventory-management-backend-production-4101.up.railway.app/api/onboarding/item-categories/${cid}/${productCategoryId}`);
       if (response.data.success) {
         setItemCategoriesList(response.data.data);
         if (response.data.data.length > 0) {
@@ -199,14 +199,14 @@ const OnboardingWizard: React.FC = () => {
     if (currentStep === 1) {
       // Save product categories
       try {
-        await axios.post('http://localhost:5000/api/onboarding/product-categories', {
+        await axios.post('inventory-management-backend-production-4101.up.railway.app/api/onboarding/product-categories', {
           companyId,
           categories: productCategories.filter(c => c.name.trim())
         });
         await loadProductCategories(companyId);
         // Wait a bit for the data to be available
         setTimeout(async () => {
-          const response = await axios.get(`http://localhost:5000/api/onboarding/product-categories/${companyId}`);
+          const response = await axios.get(`inventory-management-backend-production-4101.up.railway.app/api/onboarding/product-categories/${companyId}`);
           if (response.data.success && response.data.data.length > 0) {
             const firstCategory = response.data.data[0];
             setSelectedProductCategory(firstCategory.id);
@@ -231,7 +231,7 @@ const OnboardingWizard: React.FC = () => {
       if (selectedProductCategory && itemCategories.length > 0) {
         // Save item categories
         try {
-          await axios.post('http://localhost:5000/api/onboarding/item-categories', {
+          await axios.post('inventory-management-backend-production-4101.up.railway.app/api/onboarding/item-categories', {
             companyId,
             productCategoryId: selectedProductCategory,
             categories: itemCategories.filter(c => c.name.trim())
@@ -252,7 +252,7 @@ const OnboardingWizard: React.FC = () => {
       if (selectedItemCategory && subCategories.length > 0) {
         // Save sub categories
         try {
-          await axios.post('http://localhost:5000/api/onboarding/sub-categories', {
+          await axios.post('inventory-management-backend-production-4101.up.railway.app/api/onboarding/sub-categories', {
             companyId,
             itemCategoryId: selectedItemCategory,
             categories: subCategories.filter(c => c.name.trim())
@@ -274,7 +274,7 @@ const OnboardingWizard: React.FC = () => {
     try {
       // Save vendors
       if (vendors.length > 0) {
-        await axios.post('http://localhost:5000/api/onboarding/vendors', {
+        await axios.post('inventory-management-backend-production-4101.up.railway.app/api/onboarding/vendors', {
           companyId,
           vendors: vendors.filter(v => v.name.trim())
         });
@@ -282,14 +282,14 @@ const OnboardingWizard: React.FC = () => {
 
       // Save brands
       if (brands.length > 0) {
-        await axios.post('http://localhost:5000/api/onboarding/brands', {
+        await axios.post('inventory-management-backend-production-4101.up.railway.app/api/onboarding/brands', {
           companyId,
           brands: brands.filter(b => b.name.trim())
         });
       }
 
       // Mark onboarding as complete
-      await axios.post('http://localhost:5000/api/onboarding/complete', {
+      await axios.post('inventory-management-backend-production-4101.up.railway.app/api/onboarding/complete', {
         companyId
       });
 
@@ -312,7 +312,7 @@ const OnboardingWizard: React.FC = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/onboarding/product-categories', {
+      await axios.post('inventory-management-backend-production-4101.up.railway.app/api/onboarding/product-categories', {
         companyId,
         categories: [category]
       });
@@ -333,7 +333,7 @@ const OnboardingWizard: React.FC = () => {
     // If it's a saved item (has ID), delete from database
     if (categoryId) {
       try {
-        await axios.delete(`http://localhost:5000/api/onboarding/product-categories/${categoryId}`);
+        await axios.delete(`inventory-management-backend-production-4101.up.railway.app/api/onboarding/product-categories/${categoryId}`);
         await loadProductCategories(companyId);
       } catch (error) {
         console.error('Error deleting product category:', error);
@@ -365,7 +365,7 @@ const OnboardingWizard: React.FC = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/onboarding/item-categories', {
+      await axios.post('inventory-management-backend-production-4101.up.railway.app/api/onboarding/item-categories', {
         companyId,
         productCategoryId: selectedProductCategory,
         categories: [category]
@@ -387,7 +387,7 @@ const OnboardingWizard: React.FC = () => {
     // If it's a saved item (has ID), delete from database
     if (categoryId && selectedProductCategory) {
       try {
-        await axios.delete(`http://localhost:5000/api/onboarding/item-categories/${categoryId}`);
+        await axios.delete(`inventory-management-backend-production-4101.up.railway.app/api/onboarding/item-categories/${categoryId}`);
         await loadItemCategories(companyId, selectedProductCategory);
       } catch (error) {
         console.error('Error deleting item category:', error);
@@ -427,7 +427,7 @@ const OnboardingWizard: React.FC = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/onboarding/sub-categories', {
+      await axios.post('inventory-management-backend-production-4101.up.railway.app/api/onboarding/sub-categories', {
         companyId,
         itemCategoryId: selectedItemCategory,
         categories: [category]
@@ -448,7 +448,7 @@ const OnboardingWizard: React.FC = () => {
     // If it's a saved item (has ID), delete from database
     if (categoryId && selectedItemCategory) {
       try {
-        await axios.delete(`http://localhost:5000/api/onboarding/sub-categories/${categoryId}`);
+        await axios.delete(`inventory-management-backend-production-4101.up.railway.app/api/onboarding/sub-categories/${categoryId}`);
         // Reload sub categories if needed
       } catch (error) {
         console.error('Error deleting sub category:', error);
@@ -489,7 +489,7 @@ const OnboardingWizard: React.FC = () => {
     // If it's a saved item (has ID), delete from database
     if (vendorId) {
       try {
-        await axios.delete(`http://localhost:5000/api/onboarding/vendors/${vendorId}`);
+        await axios.delete(`inventory-management-backend-production-4101.up.railway.app/api/onboarding/vendors/${vendorId}`);
         setVendors(vendors.filter((_, i) => i !== index));
       } catch (error) {
         console.error('Error deleting vendor:', error);
@@ -517,7 +517,7 @@ const OnboardingWizard: React.FC = () => {
     // If it's a saved item (has ID), delete from database
     if (brandId) {
       try {
-        await axios.delete(`http://localhost:5000/api/onboarding/brands/${brandId}`);
+        await axios.delete(`inventory-management-backend-production-4101.up.railway.app/api/onboarding/brands/${brandId}`);
         setBrands(brands.filter((_, i) => i !== index));
       } catch (error) {
         console.error('Error deleting brand:', error);

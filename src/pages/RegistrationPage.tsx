@@ -157,7 +157,7 @@ const RegistrationPage: React.FC = () => {
 
       // Make API call to backend
       const response = await axios.post(
-        'http://localhost:5000/api/companies/register',
+        'inventory-management-backend-production-4101.up.railway.app/api/companies/register',
         registrationData,
         {
           headers: {
