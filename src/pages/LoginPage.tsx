@@ -76,7 +76,7 @@ const LoginPage: React.FC = () => {
 
     try {
       const response = await axios.post(
-        'inventory-management-backend-production-4101.up.railway.app/api/auth/login',
+        'https://inventory-management-backend-production-4101.up.railway.app/api/auth/login',
         {
           companyId: formData.companyId.toUpperCase(),
           email: formData.email.toLowerCase(),
@@ -102,7 +102,7 @@ const LoginPage: React.FC = () => {
         // Check onboarding status
         try {
           const onboardingResponse = await axios.get(
-            `inventory-management-backend-production-4101.up.railway.app/api/onboarding/status/${response.data.data.user.companyId}`
+            `https://inventory-management-backend-production-4101.up.railway.app/api/onboarding/status/${response.data.data.user.companyId}`
           );
           
           if (!onboardingResponse.data.onboardingCompleted) {

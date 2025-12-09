@@ -1,6 +1,6 @@
 import axios, { type InternalAxiosRequestConfig, type AxiosResponse, type AxiosError } from 'axios';
 
-const API_BASE_URL = 'inventory-management-backend-production-4101.up.railway.app/api';
+const API_BASE_URL = 'https://inventory-management-backend-production-4101.up.railway.app/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
