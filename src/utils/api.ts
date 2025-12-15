@@ -1,7 +1,7 @@
 import axios, { type InternalAxiosRequestConfig, type AxiosResponse, type AxiosError } from 'axios';
 
 // Backend URL
-const BACKEND_URL = 'http://localhost:5000';
+const BACKEND_URL = 'http://inventory-management-backend.railway.internal';
 
 // Use proxy in development (Vite proxy) or direct URL in production
 // In dev: /api → proxied to backend
