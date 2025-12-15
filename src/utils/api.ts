@@ -1,12 +1,14 @@
 import axios, { type InternalAxiosRequestConfig, type AxiosResponse, type AxiosError } from 'axios';
 
 // Backend URL
-const BACKEND_URL = 'https://inventory-management-backend.railway.internal';
+const BACKEND_URL = import.meta.env.DEV
+  ? 'http://localhost:5000'  // Development: local backend
+  : 'https://inventory-management-backend-production-5631.up.railway.app';  // Production: Railway backend
 
 // Use proxy in development (Vite proxy) or direct URL in production
 // In dev: /api → proxied to backend
 // In prod: direct backend URL
-const API_BASE_URL = import.meta.env.DEV 
+const API_BASE_URL = import.meta.env.DEV
   ? '/api'  // Vite proxy will forward to backend
   : `${BACKEND_URL}/api`;
 
@@ -33,13 +35,13 @@ api.interceptors.request.use(
       config.headers = config.headers || {};
       config.headers.Authorization = `Bearer ${token}`;
     }
-    
+
     // Log request in development
     if (import.meta.env.DEV) {
       const fullUrl = config.baseURL + config.url;
       console.log('[API] Request:', config.method?.toUpperCase(), fullUrl);
     }
-    
+
     return config;
   },
   (error: AxiosError): Promise<AxiosError> => {
